@@ -9,7 +9,7 @@ from flask_jwt_extended import JWTManager
 load_dotenv()
 
 # Get MongoDB URI from environment variables
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/Hackbeanpot")
+MONGO_URI = os.getenv("MONGO_URI")
 
 # JWT Secret Key
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
@@ -17,7 +17,8 @@ JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 # Create a MongoDB client connection
 try:
     client = MongoClient(MONGO_URI)
-    db = client.get_database("Hackbeanpot")
+    client.admin.command('ping')
+    db = client.get_database("hackbeanpot")
     print("Connected to MongoDB")
 except Exception as e:
     print(f"Error connecting to MongoDB: {e}")
@@ -25,7 +26,7 @@ except Exception as e:
 
 # Connect to MongoEngine using same MongoDB URI
 try:
-    me.connect("Hackbeanpot", host=MONGO_URI)
+    me.connect("hackbeanpot", host=MONGO_URI)
     print("Connected MongoDB to MongoEngine")
 except Exception as e:
     print(f"Error connecting MongoDB to MongoEngine: {e}")
