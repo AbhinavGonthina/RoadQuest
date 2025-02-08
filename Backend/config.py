@@ -14,6 +14,12 @@ MONGO_URI = os.getenv("MONGO_URI")
 # JWT Secret Key
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 
+#Google Maps API
+GOOGLE_MAPS_KEY = os.getenv("GOOGLE_MAPS_API")
+
+# OPENAI SECRET KEY
+OPENAI_SECRET_KEY = os.getenv("OPENAI_API")
+
 # Create a MongoDB client connection
 try:
     client = MongoClient(MONGO_URI)

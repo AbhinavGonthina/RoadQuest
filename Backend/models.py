@@ -41,3 +41,23 @@ class User(me.Document):
     meta = {
         "collection": "users"
     }
+
+class Quest(me.Document):
+    name = me.StringField(required=True)
+    description = me.StringField(required=True)
+    landmark = me.StringField(reqired=True)
+    reward = me.IntField(required=True)
+
+
+    def to_json(self):
+        return {
+            "id": str(self.id),
+            "name": self.name,
+            "description": self.description,
+            "landmark": self.landmark,
+            "reward": self.reward,
+        }
+
+    meta = {
+        "collection": "quests"
+    }
