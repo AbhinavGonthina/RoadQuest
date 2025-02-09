@@ -6,6 +6,7 @@ import random
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
 from models import Quest
+from navigation_routes import routes_with_landmarks
 
 # Set up post blueprint at "/api/quests"
 quests_bp = Blueprint('quests', __name__, url_prefix="/api/quests")
@@ -43,21 +44,15 @@ def generate_quests_from_route():
     """
     if request.headers.get("Content-Type") != "application/json":
         return jsonify({"error": "Content-Type must be application/json", "success": False, "status": 400})
+    
     data = request.get_json()
     required_fields = ["start_location", "end_location", "route_summary", "route_steps", "total_distance", "total_duration", "landmarks"]
+
     for field in required_fields:
         if field not in data:
             return jsonify({"error": f"Missing required field: {field}", "success": False, "status": 400})
     
     # Extract route information and landmarks from the payload
-    route_info = {
-        "start_location": data.get("start_location"),
-        "end_location": data.get("end_location"),
-        "route_summary": data.get("route_summary"),
-        "route_steps": data.get("route_steps"),
-        "total_distance": data.get("total_distance"),
-        "total_duration": data.get("total_duration")
-    }
     landmarks = data.get("landmarks")
 
     quests_created = []

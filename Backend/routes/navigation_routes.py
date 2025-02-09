@@ -17,38 +17,21 @@ def get_random_quest_count(total_miles):
     else:
         return random.randint(30, 60)
 
-@navigation_bp.route("/createRoute", methods=["POST"])
-def get_route():
-    # Check to see if content-type is json
-    if request.headers['Content-Type'] != 'application/json':
-        return jsonify({"error": "Content-Type must be application/json", "success":False, "status":400})
-    
-        
-    #Sets data from request
-    data = request.json
-    if not data:
-        return jsonify({"error": "Invalid JSON", "success":False, "status":400})
-    
+def routes_with_landmarks(start_location, end_location):
     try:
-        start_location = data.get("start")
-        end_location = data.get("end")
-
-        if not start_location or not end_location:
-            return jsonify({"error": "Both 'start' and 'end' locations are required", "status": 400})
-        
         google_maps_url = f"https://maps.googleapis.com/maps/api/directions/json?origin={start_location}&destination={end_location}&key={GOOGLE_MAPS_KEY}"
         
         data = requests.get(google_maps_url)
         data = data.json()
 
         if not data:
-            return jsonify({"error":"Could not fetch directions from Google Maps", "status":500})
+            return ({"error":"Could not fetch directions from Google Maps", "status":500})
         
         route = data['routes'][0]
         legs = route['legs'][0]
             
         if not route or not legs:
-            return jsonify({"error":"Could not get routes/legs", "status":500})
+            return ({"error":"Could not get routes/legs", "status":500})
             
         route_summary = route['summary']
         route_steps = []
@@ -90,10 +73,10 @@ def get_route():
         response_route["landmarks"] = landmarks
 
 
-        return jsonify({"Navigation":response_route, "status":200})
+        return response_route
     
     except Exception as e:
-        return jsonify({"error": str(e), "status":500})
+        return ({"error": str(e), "status":500})
 
 
 def get_landmarks_route(route_data, max_quests):
