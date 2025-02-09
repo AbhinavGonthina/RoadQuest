@@ -113,6 +113,7 @@ def get_landmarks_route(route_data, max_quests):
                     "rating": place.get("rating", "N/A"),
                     "latitude": place["geometry"]["location"]["lat"],
                     "longitude": place["geometry"]["location"]["lng"],
+                    "address": place.get("vicinity", "No address available")
                 }
                 landmarks.append(landmark)
 

@@ -28,7 +28,7 @@ const SignIn = () => {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
           toast.success("Successful Login!");
-          navigate("/");
+          navigate("/home");
         } else {
           toast.error(response.data.error);
         }
@@ -44,7 +44,7 @@ const SignIn = () => {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
           toast.success("Successfully Created Account!");
-          navigate("/");
+          navigate("/home");
         } else {
           toast.error(response.data.error);
         }
@@ -58,7 +58,7 @@ const SignIn = () => {
   return (
     <div className="flex w-screen  items-center justify-center">
         {currentState === "SignIn" ? (
-          <div className="border border-8 w-[60%] h-[60%] mt-[7.5%] bg-[#d67c36] rounded-lg flex flex-col items-center justify-center">
+          <div className="border-8 w-[60%] h-[60%] mt-[7.5%] bg-[#d67c36] rounded-lg flex flex-col items-center justify-center">
             <form
               onSubmit={onSubmitHandler}
               className="w-[100%] h-[90%] bg-backgroundTan rounded-lg flex flex-col justify-center items-center"
@@ -113,7 +113,7 @@ const SignIn = () => {
             </form>
           </div>
         ) : (
-          <div className="border border-8 w-[60%] h-[60%] mt-[5.5%] bg-[#d67c36] rounded-lg flex flex-col items-center justify-center">
+          <div className="border-8 w-[60%] h-[60%] mt-[5.5%] bg-[#d67c36] rounded-lg flex flex-col items-center justify-center">
             <form
               onSubmit={onSubmitHandler}
               className="w-[90%] h-[90%] bg-backgroundTan rounded-lg flex flex-col items-center"

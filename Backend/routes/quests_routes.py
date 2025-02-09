@@ -1,11 +1,10 @@
 import math
-from flask import Blueprint
+from flask import request, jsonify, Blueprint
 import openai
-import json
 import random
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
-from models import Quest
+from models import *
 from .navigation_routes import routes_with_landmarks
 from config import OPENAI_SECRET_KEY
 
@@ -71,13 +70,15 @@ def generate_quests_from_route():
     for landmark in landmarks:
         # Generate quest details using ChatGPT
         quest_details = generate_quest_via_chatgpt(landmark)
+        landmark_address = landmark.get("address", "Unknown Address")
 
         try:
             quest = Quest(
-                name=quest_details.get("name"),
-                description=quest_details.get("description"),
-                landmark=landmark.get("name"),
-                reward=quest_details.get("reward")
+                name = quest_details.get("name"),
+                description = quest_details.get("description"),
+                landmark = landmark.get("name"),
+                reward = quest_details.get("reward"),
+                address = landmark_address
             )
             quest.save()
             quests_created.append(quest.to_json())
