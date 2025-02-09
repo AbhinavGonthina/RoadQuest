@@ -4,7 +4,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-weight: 400;
 
-  background-color: #f9c58a;
+  background-color: #485444;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -70,4 +70,12 @@ button {
 
 .palDarkBrown {
   background-color: #5A3E2B;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none;
 }
