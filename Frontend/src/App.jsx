@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
 
   return (
-    <div className="w-full min-h-screen">
+    <div className="w-full min-h-screen p-0">
       <ToastContainer />
       <Routes>
           <Route path="/" element={<Home />} />
